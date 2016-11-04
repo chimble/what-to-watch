@@ -8,13 +8,6 @@
 import csv
 
 
-# def movie_rating_data():
-#     with open('u.data.test.csv') as f:
-#         reader = csv.DictReader(f, delimiter = ' ')
-#         for row in reader:
-#             print(row["user_id"], row["movie_id"], row["rating"], row["timestamp"])
-# movie_rating_data()
-
 def movie_data():
     with open('u.item.test.csv') as f:
         fieldnames = ['movie_id', 'movie_name']
@@ -23,21 +16,25 @@ def movie_data():
         for row in reader:
             dict_of_movie_name_id[row['movie_id']] = row['movie_name'][0:-7]
         return(dict_of_movie_name_id)
-
-def search_movie_by_id():
-    dictdict = movie_data()
-    return(dictdict[user_rating_data()])
+#
+# def search_movie_by_id():
+#     dictdict = movie_data()
+#     return(dictdict[user_rating_data()])
 
 
 def user_rating_data():
     with open('u.data.test.csv') as f:
         fieldnames = ['user_id', 'movie_id', 'rating', 'timestamp']
         reader = csv.DictReader(f, fieldnames = fieldnames, delimiter = '\t')
-        user_input = input("give me movie ID:")
+        dictdict = movie_data()
+        user_input = input("give me movie name:")
+        for movie_id, movie_name in dictdict.items():
+            if movie_name == user_input:
+                idid = movie_id
         i=0
         sum_rating = 0
         for row in reader:
-            if row['movie_id'] == user_input:
+            if row['movie_id'] == idid:
                 i+=1
                 print(row['rating'])
                 sum_rating += int(row['rating'])
