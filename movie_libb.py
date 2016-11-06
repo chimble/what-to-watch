@@ -71,6 +71,16 @@ def movie_ratings():
         #print(dictionary_movie_ratings['1'])
 movie_ratings()
 
+def user_ratings():
+    with open('u.data.test.csv') as f:
+        fieldnames = ['user_id', 'movie_id', 'rating', 'timestamp']
+        reader = csv.DictReader(f, fieldnames = fieldnames, delimiter = '\t')
+        dictionary_user_ratings = {}
+        for row in reader:
+            dictionary_user_ratings.setdefault(row['user_id'], []).append(Rating(**row))
+        #print(type(dictionary_movie_ratings['1'][0]))
+        return(dictionary_user_ratings)
+user_ratings()
 
 
 # if row['movie_id'] in dictionary_movie_ratings:
