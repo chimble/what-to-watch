@@ -16,8 +16,8 @@ class Rating:
         self.user_id = user_id
         self.movie_id = movie_id
     def __repr__(self):
-        #return self.rating
-        return "{}, {}".format(self.rating, self.user_id)
+        return self.rating
+        #return "{}, {}".format(self.rating, self.user_id)
     def get_rating(self, movie_id):
         return self.rating
     def get_avg(self, movie_id):
