@@ -55,7 +55,7 @@ def movie_data():
         for row in reader:
             dictionary_movie_ids[row['movie_id']] = Movie(row['movie_name'][0:-7])
         return(dictionary_movie_ids)
-movie_data()
+
 
 def user_data():
     with open('u.user.test.csv') as f:
@@ -65,7 +65,7 @@ def user_data():
         for row in reader:
             dictionary_user_data.setdefault(row['user_id'], []).append(User(**row))
         #print(dictionary_user_data)
-user_data()
+
 
 
 def movie_ratings():
@@ -78,7 +78,7 @@ def movie_ratings():
         #print(type(dictionary_movie_ratings['1'][0]))
         return(dictionary_movie_ratings)
         #print(dictionary_movie_ratings['1'])
-movie_ratings()
+
 
 def user_ratings():
     with open('u.data.csv') as f:
@@ -89,7 +89,7 @@ def user_ratings():
             dictionary_user_ratings.setdefault(row['user_id'], []).append(Rating(**row))
         #print(type(dictionary_movie_ratings['1'][0]))
         return(dictionary_user_ratings)
-user_ratings()
+
 
 def ranked_movie():
     with open('u.data.csv') as f:
@@ -109,7 +109,7 @@ def ranked_movie():
             if i >= 300:
                 dictionary_ranked_top[k] = sum_ratings_all/i
 
-        return(sorted(dictionary_ranked_top.items(), key=lambda x: x[1], reverse=True))
+        return(sorted(dictionary_ranked_top.items(), key = lambda x: x[1], reverse = True))
                 #dictionary_ranked_movies.setdefault(row['movie_id'], []).append(sum(new_list_ratings)/(len(new_list_ratings)))
 
         #(new_list_ratings)
