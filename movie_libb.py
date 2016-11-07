@@ -37,9 +37,18 @@ class User():
     def __repr__(self):
         return self.user_id
 
+class AvgRating():
+
+    def __init__(self, **kwargs):
+        self.movie_id = kwargs['movie_id']
+        self.rating = kwargs['rating']
+
+    def __repr__(self):
+        return self.rating
+
 
 def movie_data():
-    with open('u.item.test.csv') as f:
+    with open('u.item.csv') as f:
         fieldnames = ['movie_id', 'movie_name']
         reader = csv.DictReader(f, fieldnames = fieldnames, delimiter = '|')
         dictionary_movie_ids = {}
@@ -60,7 +69,7 @@ user_data()
 
 
 def movie_ratings():
-    with open('u.data.test.csv') as f:
+    with open('u.data.csv') as f:
         fieldnames = ['user_id', 'movie_id', 'rating', 'timestamp']
         reader = csv.DictReader(f, fieldnames = fieldnames, delimiter = '\t')
         dictionary_movie_ratings = {}
@@ -72,7 +81,7 @@ def movie_ratings():
 movie_ratings()
 
 def user_ratings():
-    with open('u.data.test.csv') as f:
+    with open('u.data.csv') as f:
         fieldnames = ['user_id', 'movie_id', 'rating', 'timestamp']
         reader = csv.DictReader(f, fieldnames = fieldnames, delimiter = '\t')
         dictionary_user_ratings = {}
@@ -81,6 +90,31 @@ def user_ratings():
         #print(type(dictionary_movie_ratings['1'][0]))
         return(dictionary_user_ratings)
 user_ratings()
+
+def ranked_movie():
+    with open('u.data.csv') as f:
+        fieldnames = ['user_id', 'movie_id', 'rating', 'timestamp']
+        reader = csv.DictReader(f, fieldnames = fieldnames, delimiter = '\t')
+        dictionary_ranked_movies = {}
+        dictionary_ranked_top = {}
+        i = 0
+        for row in reader:
+            dictionary_ranked_movies.setdefault(row['movie_id'], []).append(Rating(**row))
+        for k in dictionary_ranked_movies:
+            sum_ratings_all = 0
+            i = 0
+            for item in dictionary_ranked_movies[k]:
+                sum_ratings_all += (int(dictionary_ranked_movies[k][i].rating))
+                i += 1
+            if i >= 300:
+                dictionary_ranked_top[k] = sum_ratings_all/i
+
+        return(sorted(dictionary_ranked_top.items(), key=lambda x: x[1], reverse=True))
+                #dictionary_ranked_movies.setdefault(row['movie_id'], []).append(sum(new_list_ratings)/(len(new_list_ratings)))
+
+        #(new_list_ratings)
+
+        #print(dictionary_ranked_movies)
 
 
 # if row['movie_id'] in dictionary_movie_ratings:
